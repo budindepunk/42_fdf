@@ -6,7 +6,7 @@
 /*   By: csilva-r <csilva-r@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:36:18 by csilva-r          #+#    #+#             */
-/*   Updated: 2024/07/18 11:38:26 by csilva-r         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:16:50 by csilva-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <stdint.h>
 # include <stdarg.h>
+# include <fcntl.h>
 
 # define HEX_BASE_UPP "0123456789ABCDEF"
 # define HEX_BASE_LOW "0123456789abcdef"
@@ -68,7 +69,15 @@ int	pf_putstr(char *s, int counter);
 int	pf_putptr(unsigned long long ptr, char *charset, int counter);
 int	pf_putnbr(int n, char *charset, int counter, int sign_matters);
 int	pf_putchar(char c, int counter);
-int	ft_printf(const char *input, ...);
+
+/* Get_next_line */
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 30
+# endif
+# ifndef MAX_ITEMS
+#  define MAX_ITEMS 1024
+# endif
+char	*get_next_line(int fd);
 
 /* Bonus */
 typedef struct s_list
