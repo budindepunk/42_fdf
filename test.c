@@ -1,6 +1,7 @@
 #include "fdf.h"
+#include <X11/keysym.h>
 
-void	fill_image(t_fdf *data)
+void	fill_center(t_fdf *data)
 {
 	int	pixel;
 	int	color;
@@ -44,14 +45,50 @@ t_fdf	*init(void)
 	return (data);
 }
 
+int	keypress_handler(int keysym, t_fdf *data)
+{
+	if (keysym == XK_Escape)
+		mlx_destroy_window(data->mlx, data->window);
+	return (0);
+}
+
+int	mouse_handler(int button, int x, int y, void *param)
+{
+	if (!param)
+		return (0);
+	if (button == 1)
+		ft_printf("left ");
+	else if (button == 2)
+		ft_printf("middle ");
+	else if (button == 3)
+		ft_printf("right ");
+	ft_printf("click at (%d, %d)\n", x, y);
+	return (0);
+}
+
+/*
+int	handle_nothing(t_fdf *data)
+{
+	if (data)
+		return (0);
+	return (0);
+}
+*/
+
 int	main(void)
 {
 	t_fdf	*data;
 
 	data = init();
-	fill_image(data);
+	fill_center(data);
 	mlx_put_image_to_window(data->mlx, data->window, data->image, 0, 0);
+
+	//mlx_loop_hook(data->mlx, &handle_nothing, &data);
+	mlx_key_hook(data->window, &keypress_handler, &data);
+	mlx_mouse_hook(data->window, &mouse_handler, &data);
 	
 	mlx_loop(data->mlx);
+
+	mlx_destroy_display(data->mlx);	
 	return (0);
 }

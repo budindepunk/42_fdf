@@ -4,6 +4,8 @@
 # include "includes/mlx_linux/mlx.h"
 # include "includes/libft/libft.h"
 
+# define ESCAPE 9
+
 typedef struct s_fdf
 {
 	void	*mlx;
@@ -17,7 +19,5 @@ typedef struct s_fdf
 
 # define WIDTH 640
 # define HEIGHT 380
-
-# define ESCAPE 53
 
 #endif

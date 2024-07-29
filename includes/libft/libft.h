@@ -64,6 +64,7 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 
 /* PrintF */
+int	ft_printf(const char *input, ...);
 int	pf_putunbr(unsigned int n, char *charset, int counter);
 int	pf_putstr(char *s, int counter);
 int	pf_putptr(unsigned long long ptr, char *charset, int counter);
