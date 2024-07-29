@@ -2,7 +2,7 @@ SRCS	= test.c
 OBJS	= $(SRCS:%.c=%.o)
 NAME	= test
 CC	= cc
-CFLAGS	= -Wall -Wextra -Werror -I.
+CFLAGS	= -g -Wall -Wextra -Werror -I.
 LFLAGS	= -Lincludes/mlx_linux -lmlx_Linux -Iincludes/mlx_linux -L/usr/lib -lXext -lX11 -lm -lz -Lincludes/libft -lft
 
 all:	$(NAME)
