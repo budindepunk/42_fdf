@@ -79,6 +79,7 @@ t_fdf	*init(void)
 int	keypress_handler(int keysym, void *param)
 {
 	t_fdf *data;
+	static int flag;
 
 	data = (t_fdf *)param;
 	if (keysym == XK_Escape)
@@ -92,9 +93,11 @@ int	keypress_handler(int keysym, void *param)
 		ft_printf(":P\n");
 	else
 	{
-		ft_printf("pressed key %d\n", keysym);
-		fill_center2(data);
-		// mlx_put_image_to_window(data->mlx, data->window, data->image, 0, 0);
+		if (!flag)
+			fill_center2(data);
+		else
+			fill_center(data);
+		flag = !flag;	
 	}
 	return (0);
 }
@@ -129,7 +132,7 @@ int	main(void)
 	data = init();
 	fill_center(data);
 
-	//mlx_loop_hook(data->mlx, &handle_nothing, &data);
+	//mlx_loop_hook(data->mlx, &handle_nothing, data);
 	mlx_key_hook(data->window, &keypress_handler, data);
 	mlx_mouse_hook(data->window, &mouse_handler, data);
 	
