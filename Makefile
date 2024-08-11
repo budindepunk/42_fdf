@@ -16,20 +16,24 @@ LFLAGS	=  $(MLX_FLAGS) $(SYS_FLAGS) $(LIBFT_FLAGS)
 all:	$(NAME)
 
 $(LIBFT):
-	@make -C includes/libft
+	$(info Building libft...)
+	@make -s -C includes/libft
 
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME)
+$(NAME): $(LIBFT) $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME)
+	$(info Done!)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(LFLAGS) -o $@ -c $<
+	$(info Building fdf...)
+	@$(CC) $(CFLAGS) $(LFLAGS) -o $@ -c $<
 
 clean:
-	rm $(OBJS)
-	@make -C includes/libft clean
+	@rm $(OBJS)
+	@make -s -C includes/libft clean
+	$(info Removed!)
 fclean: clean
-	rm $(NAME)
-	@make -C includes/libft fclean
+	@rm $(NAME)
+	@make -s -C includes/libft fclean
 
 re:	fclean all
 
