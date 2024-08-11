@@ -3,8 +3,17 @@
 
 # include "includes/mlx_linux/mlx.h"
 # include "includes/libft/libft.h"
+# include <X11/keysym.h>
+# include <fcntl.h>
+# include <limits.h>
+# include <unistd.h>
+# include <stdlib.h>
 
 # define ESCAPE 9
+# define WIDTH 640
+# define HEIGHT 380
+# define TRUE 1
+# define FALSE 0
 
 typedef struct s_fdf
 {
@@ -17,7 +26,10 @@ typedef struct s_fdf
 	int	endian;
 }		t_fdf;
 
-# define WIDTH 640
-# define HEIGHT 380
+// events
+int     mouse_handler(int button, int x, int y, void *param);
+int     keypress_handler(int keysym, void *param);
+// map
+int	**parse_map(char *file);
 
 #endif
