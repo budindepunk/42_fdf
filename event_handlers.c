@@ -25,8 +25,6 @@ int     keypress_handler(int keysym, void *param)
                 mlx_destroy_window(data->mlx, data->window);
                 exit (0);
         }
-        else if (keysym == XK_Return)
-                ft_printf(":P\n");
         return (0);
 }
 

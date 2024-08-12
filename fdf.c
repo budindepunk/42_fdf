@@ -6,7 +6,7 @@ t_fdf   *init(void)
 
         data = (t_fdf *)malloc(sizeof(t_fdf));
         data->mlx = mlx_init();
-        data->window = mlx_new_window(data->mlx, WIDTH, HEIGHT, "hello");
+        data->window = mlx_new_window(data->mlx, WIDTH, HEIGHT, "soquicoqui futbol club");
         data->image = mlx_new_image(data->mlx, WIDTH, HEIGHT);
         data->buffer = mlx_get_data_addr(data->image, &data->bits_pixel, &data->size_line, &data->endian);
 
@@ -28,7 +28,7 @@ int	check_arguments(int argc, char **argv)
         l = ft_strlen(f);
         if (f[--l] != 'f' || f[--l] != 'd' || f[--l] != 'f' || f[--l] != '.')
 	{
-		ft_printf("Use a .fdf file\n");	
+		ft_printf("Use a .fdf file.\n");	
                	return (FALSE);
 	}
         return (TRUE);
@@ -41,6 +41,9 @@ int     main(int argc, char **argv)
 	if (!check_arguments(argc, argv))
 		return (1);
         data = init();
+        parse_map(data, argv[1]);
+        ft_printf("rows: %d", data->rows);
+        ft_printf(" || columns: %d\n", data->columns);
 
         mlx_key_hook(data->window, &keypress_handler, data);
         mlx_mouse_hook(data->window, &mouse_handler, data);

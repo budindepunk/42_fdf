@@ -24,12 +24,15 @@ typedef struct s_fdf
 	int	bits_pixel;
 	int	size_line;
 	int	endian;
+	int	columns;
+	int	rows;
+	int **map;
 }		t_fdf;
 
 // events
 int     mouse_handler(int button, int x, int y, void *param);
 int     keypress_handler(int keysym, void *param);
 // map
-int	**parse_map(char *file);
+void	parse_map(t_fdf *data, char *file);
 
 #endif
