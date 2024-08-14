@@ -20,10 +20,10 @@ void	fill_center(t_fdf *data)
 			else
 				color = color2;
 			pixel = (y * data->size_line) + (4 * x);
-			data->buffer[pixel + 0] = (color) & 0xFF;
-			data->buffer[pixel + 1] = (color >> 8) & 0xFF;
-			data->buffer[pixel + 2] = (color >> 16) & 0xFF;
-			data->buffer[pixel + 3] = (color >> 24) & 0xFF;
+			data->buffer[pixel + 0] = (color) & 0xFF; // red
+			data->buffer[pixel + 1] = (color >> 8) & 0xFF; // green
+			data->buffer[pixel + 2] = (color >> 16) & 0xFF; // blue
+			data->buffer[pixel + 3] = (color >> 24) & 0xFF; // alpha (transparency)
 			x++;
 		}
 		y++;

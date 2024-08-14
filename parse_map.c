@@ -1,10 +1,5 @@
 #include "fdf.h"
 
-// get a line. string
-// split it by spaces
-// for each value, if comma, split
-// atoi first or only thing in each
-
 static int	*split_atoi(t_fdf *data, char *line)
 {
 	int	*row;
@@ -67,12 +62,11 @@ void	parse_map(t_fdf *data, char *file)
 	fd = open(file, O_RDONLY);
     if (fd <= 0)
 	{
-		ft_printf("Error opening file\n");
+		ft_printf("Error opening file.\n");
 		return ;
 	}
 	set_dimensions(data, fd);
 	data->map = malloc(sizeof(int *) * data->rows);
-	// TODO: reopen file
 	close(fd);
 	fd = open(file, O_RDONLY);
 	i = 0;

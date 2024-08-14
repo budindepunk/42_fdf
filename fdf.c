@@ -42,13 +42,12 @@ int     main(int argc, char **argv)
 		return (1);
         data = init();
         parse_map(data, argv[1]);
-        ft_printf("rows: %d", data->rows);
-        ft_printf(" || columns: %d\n", data->columns);
 
         mlx_key_hook(data->window, &keypress_handler, data);
         mlx_mouse_hook(data->window, &mouse_handler, data);
 
         mlx_loop(data->mlx);
+        mlx_destroy_display(data->mlx);	
 
         return (0);
 }

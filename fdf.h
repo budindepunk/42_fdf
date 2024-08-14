@@ -11,10 +11,14 @@
 
 # define ESCAPE 9
 # define WIDTH 640
-# define HEIGHT 380
+# define HEIGHT 480
 # define TRUE 1
 # define FALSE 0
 
+/* colors */
+# define WHITE 0xFFFFFF
+
+/* structs */
 typedef struct s_fdf
 {
 	void	*mlx;
@@ -29,10 +33,17 @@ typedef struct s_fdf
 	int **map;
 }		t_fdf;
 
-// events
+typedef struct s_pair
+{
+	int		x;
+	int		y;
+}		t_pair;
+
+/* events */
 int     mouse_handler(int button, int x, int y, void *param);
 int     keypress_handler(int keysym, void *param);
-// map
+/* map */
 void	parse_map(t_fdf *data, char *file);
+void    draw_line(t_fdf *data, t_pair start, t_pair end);
 
 #endif
