@@ -26,7 +26,7 @@ $(NAME): $(LIBFT) $(OBJS)
 
 %.o: %.c
 	$(info Building $@...)
-	@$(CC) $(CFLAGS) $(LFLAGS) -o $@ -c $<
+	@$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
 	@rm -f $(OBJS)
