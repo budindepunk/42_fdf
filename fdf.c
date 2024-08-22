@@ -46,6 +46,12 @@ int     main(int argc, char **argv)
         mlx_key_hook(data->window, &keypress_handler, data);
         mlx_mouse_hook(data->window, &mouse_handler, data);
 
+
+        t_pair start = { .x = 28, .y = 199 };
+        t_pair end = { .x = 235, .y = 122 };
+
+        draw_line(data, start, end);
+
         mlx_loop(data->mlx);
         mlx_destroy_display(data->mlx);	
 

@@ -10,8 +10,8 @@
 # include <stdlib.h>
 
 # define ESCAPE 9
-# define WIDTH 640
-# define HEIGHT 480
+# define WIDTH 300
+# define HEIGHT 300
 # define TRUE 1
 # define FALSE 0
 
