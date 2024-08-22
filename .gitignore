@@ -1,3 +1,5 @@
+*.o
+*.a
 fdf_test
 fdf
 *.swp
