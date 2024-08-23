@@ -4,6 +4,8 @@ static void paint_pixel(t_fdf *data, t_pair start, int color)
 {
     int pixel;
 
+    if (start.x > WIDTH || start.y > HEIGHT || start.x < 0 || start.y < 0)
+        return ;
     pixel = (start.y * data->size_line) + (4 * start.x);
 	data->buffer[pixel + 0] = (color) & 0xFF; // red
 	data->buffer[pixel + 1] = (color >> 8) & 0xFF; // green
@@ -42,5 +44,5 @@ void    draw_line(t_fdf *data, t_pair start, t_pair end)
             start.y += sign.y;
         }
     }
-    mlx_put_image_to_window(data->mlx, data->window, data->image, 20, 20);
+    mlx_put_image_to_window(data->mlx, data->window, data->image, 0, 0);
 }

@@ -11,8 +11,8 @@
 # include <math.h>
 
 # define ESCAPE 9
-# define WIDTH 300
-# define HEIGHT 300
+# define WIDTH 700
+# define HEIGHT 700
 # define TRUE 1
 # define FALSE 0
 

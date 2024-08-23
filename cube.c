@@ -5,7 +5,8 @@ created thruples for the coordinates in the "real world", then found the equatio
 then iterated through all throuples (8), and saved the flattened vertices in an array. then manually decided which ones to join with a line. show the cube*/
 /*Then write about main porject. in parse_map() i get useful info like rows and columns, open the file, etc. then in
 flatten_map() i create an array of pairs to save coords of all points of the grid. i iterate through them and make each a temporary thruple so i can flatten it and put it in the array.
-then in draw_all i take the array of coords. the loop has some conditions in it to draw it efficiently i think.my projection is rotated and idk why, i think its related to my grid point 0,0. the projection seems to want to keep that point at the top left. ill look into it*/
+then in draw_all i take the array of coords. the loop has some conditions in it to draw it efficiently i think.my projection is rotated and idk why, i think its related to my grid point 0,0. the projection seems to want to keep that point at the top left. ill look into it.
+/// seems the thing is ok but from the wrong OCTANT. the sample 42 map can look good (screenshot) but its clear its the wrong point of view. next step is figuring out what "inverting and rotating the matrix' is".*/
 
 void flatten_cube(t_fdf *data)
 {

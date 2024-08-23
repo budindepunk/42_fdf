@@ -57,9 +57,9 @@ t_pair *flatten_map(t_fdf *data) // instead of print, make all thruples (rows * 
 		j = 0;
 		while (j < data->columns)
 		{
-			point.x = j * 50;
-			point.y = i * 50;
-			point.z = data->map[i][j];
+			point.x = 100 + j * 30;
+			point.y = 100 + i * 30;
+			point.z = data->map[i][j] * 2;
 			//ft_printf("%d ", data->map[i][j]);
 			all_points[(i * data->columns) + j] = project(point);
 			j++;
