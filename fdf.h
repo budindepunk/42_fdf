@@ -40,13 +40,22 @@ typedef struct s_pair
 	int		y;
 }		t_pair;
 
+typedef struct s_thruple
+{
+	int		x;
+	int		y;
+    int     z;
+}		t_thruple;
+
 /* events */
 int     mouse_handler(int button, int x, int y, void *param);
 int     keypress_handler(int keysym, void *param);
 /* map */
-void	parse_map(t_fdf *data, char *file);
+t_pair	*parse_map(t_fdf *data, char *file);
 void    draw_line(t_fdf *data, t_pair start, t_pair end);
 
 void flatten_cube(t_fdf *data);
+t_pair project(t_thruple vertex);
+void	draw_all(t_fdf *data, t_pair *all_points);
 
 #endif

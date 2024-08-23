@@ -37,22 +37,17 @@ int	check_arguments(int argc, char **argv)
 int     main(int argc, char **argv)
 {
         t_fdf   *data;
+        t_pair  *all_points;
 
 	if (!check_arguments(argc, argv))
 		return (1);
         data = init();
-        parse_map(data, argv[1]);
+        all_points = parse_map(data, argv[1]);
 
         mlx_key_hook(data->window, &keypress_handler, data);
         mlx_mouse_hook(data->window, &mouse_handler, data);
 
-
-   //     t_pair start = { .x = 28, .y = 199 };
-    //    t_pair end = { .x = 235, .y = 122 };
-
-        flatten_cube(data);
-
-    //    draw_line(data, start, end);
+        draw_all(data, all_points); 
 
         mlx_loop(data->mlx);
         mlx_destroy_display(data->mlx);	

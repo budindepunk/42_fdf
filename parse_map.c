@@ -34,36 +34,54 @@ static void set_dimensions(t_fdf *data, int fd)
 		data->rows++;
 }
 
-void print_map(t_fdf *data)
+t_pair project(t_thruple vertex)
+{
+    t_pair flat_vertex;
+
+    flat_vertex.x = (int)((sqrt(3) * (double)vertex.x - sqrt(3) * (double)vertex.z) / sqrt(6));
+    flat_vertex.y = (int)((double)(vertex.x + 2 * vertex.y + vertex.z) / sqrt(6));
+    return (flat_vertex);
+}
+
+t_pair *flatten_map(t_fdf *data) // instead of print, make all thruples (rows * columns) amount
 {
 	int i;
 	int j;
+	t_pair *all_points;
+	t_thruple point;
 
+	all_points = malloc(sizeof(t_pair) * (data->rows * data->columns));
 	i = 0;
 	while (i < data->rows)
 	{
 		j = 0;
 		while (j < data->columns)
 		{
-			ft_printf("%d ", data->map[i][j]);
+			point.x = j * 50;
+			point.y = i * 50;
+			point.z = data->map[i][j];
+			//ft_printf("%d ", data->map[i][j]);
+			all_points[(i * data->columns) + j] = project(point);
 			j++;
 		}
-		ft_printf("\n");
+		//ft_printf("\n");
 		i++;
 	}
+	return (all_points);
 }
 
-void	parse_map(t_fdf *data, char *file)
+t_pair*	parse_map(t_fdf *data, char *file)
 {
 	int		fd;
 	int 	i;
 	char 	*line;
+	t_pair	*all_points;
 
 	fd = open(file, O_RDONLY);
     if (fd <= 0)
 	{
 		ft_printf("Error opening file.\n");
-		return ;
+		return (NULL);
 	}
 	set_dimensions(data, fd);
 	data->map = malloc(sizeof(int *) * data->rows);
@@ -79,5 +97,30 @@ void	parse_map(t_fdf *data, char *file)
 		free(line);
 		i++;
 	}
-	print_map(data);
+	all_points = flatten_map(data);
+	return (all_points);
+}
+/*
+all_points = { [x, y], [x, y], [x, y], [x, y], [x, y], ... x 25 }
+*/
+void	draw_all(t_fdf *data, t_pair *all_points)
+{
+	int i = 0;
+	int j;
+	int index;
+
+	while (i < data->rows)
+	{
+		j = 0;
+		while (j < data->columns)
+		{
+			index = (i * data->columns) + j;
+			if ((j + 1) < data->columns)
+				draw_line(data, all_points[index], all_points[index + 1]);
+			if ((i + 1) < data->rows)
+				draw_line(data, all_points[index], all_points[index + data->columns]);
+			j++;
+		}
+		i++;
+	}
 }
