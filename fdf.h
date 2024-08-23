@@ -8,6 +8,7 @@
 # include <limits.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <math.h>
 
 # define ESCAPE 9
 # define WIDTH 300
@@ -45,5 +46,7 @@ int     keypress_handler(int keysym, void *param);
 /* map */
 void	parse_map(t_fdf *data, char *file);
 void    draw_line(t_fdf *data, t_pair start, t_pair end);
+
+void flatten_cube(t_fdf *data);
 
 #endif
