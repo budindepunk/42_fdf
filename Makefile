@@ -1,4 +1,4 @@
-SRCS	= fdf.c event_handlers.c parse_map.c draw_line.c cube.c
+SRCS	= fdf.c event_handlers.c parse_map.c draw_line.c projection.c
 OBJS	= $(SRCS:%.c=%.o)
 NAME	= fdf
 CC	= cc

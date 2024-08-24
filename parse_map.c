@@ -34,15 +34,6 @@ static void set_dimensions(t_fdf *data, int fd)
 		data->rows++;
 }
 
-t_pair project(t_thruple vertex)
-{
-    t_pair flat_vertex;
-
-    flat_vertex.x = (int)((sqrt(3) * (double)vertex.x - sqrt(3) * (double)vertex.z) / sqrt(6));
-    flat_vertex.y = (int)((double)(vertex.x + 2 * vertex.y + vertex.z) / sqrt(6));
-    return (flat_vertex);
-}
-
 t_pair *flatten_map(t_fdf *data) // instead of print, make all thruples (rows * columns) amount
 {
 	int i;
@@ -57,8 +48,8 @@ t_pair *flatten_map(t_fdf *data) // instead of print, make all thruples (rows * 
 		j = 0;
 		while (j < data->columns)
 		{
-			point.x = 100 + j * 30;
-			point.y = 100 + i * 30;
+			point.x = j * 30;
+			point.y = i * 30;
 			point.z = data->map[i][j] * 2;
 			//ft_printf("%d ", data->map[i][j]);
 			all_points[(i * data->columns) + j] = project(point);
