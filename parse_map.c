@@ -34,7 +34,8 @@ static void set_dimensions(t_fdf *data, int fd)
 		data->rows++;
 }
 
-t_pair *flatten_map(t_fdf *data) // instead of print, make all thruples (rows * columns) amount
+// instead of print, create a thruple for each value in the grid
+t_pair *flatten_map(t_fdf *data)
 {
 	int i;
 	int j;
@@ -51,11 +52,9 @@ t_pair *flatten_map(t_fdf *data) // instead of print, make all thruples (rows * 
 			point.x = j * 30;
 			point.y = i * 30;
 			point.z = data->map[i][j] * 2;
-			//ft_printf("%d ", data->map[i][j]);
-			all_points[(i * data->columns) + j] = project(point);
+			all_points[(i * data->columns) + j] = project(point, data);
 			j++;
 		}
-		//ft_printf("\n");
 		i++;
 	}
 	return (all_points);

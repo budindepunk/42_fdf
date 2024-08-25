@@ -11,8 +11,8 @@
 # include <math.h>
 
 # define ESCAPE 9
-# define WIDTH 700
-# define HEIGHT 700
+# define WIDTH 400
+# define HEIGHT 400
 # define TRUE 1
 # define FALSE 0
 
@@ -55,7 +55,7 @@ t_pair	*parse_map(t_fdf *data, char *file);
 void    draw_line(t_fdf *data, t_pair start, t_pair end);
 
 void flatten_cube(t_fdf *data);
-t_pair project(t_thruple vertex);
+t_pair project(t_thruple vertex, t_fdf *data);
 void	draw_all(t_fdf *data, t_pair *all_points);
 
 #endif

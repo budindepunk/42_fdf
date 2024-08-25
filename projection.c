@@ -21,13 +21,13 @@ static int get_flat_y(t_thruple vertex)
     return ((int)flat_y);
 }
 
-t_pair project(t_thruple vertex)
+t_pair project(t_thruple vertex, t_fdf *data)
 {
     t_pair flat_vertex;
+    int offset;
 
-    //flat_vertex.x = (int)((sqrt(3) * (double)vertex.x - sqrt(3) * (double)vertex.y) / sqrt(6)) + 300;
-    //flat_vertex.y = (int)((sqrt(2) * (double)vertex.x + sqrt(2) * (double)vertex.y - sqrt(2) * (double)vertex.z) / sqrt(6));    
-    flat_vertex.x = get_flat_x(vertex);
+    offset = WIDTH * ((double)data->rows / (double)data->columns / 2);
+    flat_vertex.x = get_flat_x(vertex) + offset;
     flat_vertex.y = get_flat_y(vertex);
 
     return (flat_vertex);
