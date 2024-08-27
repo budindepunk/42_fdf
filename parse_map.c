@@ -1,23 +1,5 @@
 #include "fdf.h"
 
-static int	*split_atoi(t_fdf *data, char *line)
-{
-	int	*row;
-	char **temp;
-	int i;
-
-	temp = ft_split(line, ' ');
-	row = malloc(sizeof(int) * data->columns);
-	i = 0;
-	while (temp[i])
-	{
-		row[i] = ft_atoi(temp[i]);
-		i++;
-	}
-	free(temp);
-	return (row);
-}
-
 static void set_dimensions(t_fdf *data, int fd)
 {
 	char **line;
@@ -30,7 +12,7 @@ static void set_dimensions(t_fdf *data, int fd)
 		data->columns++;
 	free(line);
 	data->rows++;
-	while (get_next_line(fd)) // todo: maybe the result of gnl will have to be freed
+	while (get_next_line(fd)) // todo: the result of gnl will have to be freed
 		data->rows++;
 }
 
@@ -49,9 +31,9 @@ t_pair *flatten_map(t_fdf *data)
 		j = 0;
 		while (j < data->columns)
 		{
-			point.x = j * 30;
-			point.y = i * 30;
-			point.z = data->map[i][j] * 2;
+			point.x = j;
+			point.y = i;
+			point.z = data->map[i][j];
 			all_points[(i * data->columns) + j] = project(point, data);
 			j++;
 		}
@@ -93,24 +75,4 @@ t_pair*	parse_map(t_fdf *data, char *file)
 /*
 all_points = { [x, y], [x, y], [x, y], [x, y], [x, y], ... x 25 }
 */
-void	draw_all(t_fdf *data, t_pair *all_points)
-{
-	int i = 0;
-	int j;
-	int index;
 
-	while (i < data->rows)
-	{
-		j = 0;
-		while (j < data->columns)
-		{
-			index = (i * data->columns) + j;
-			if ((j + 1) < data->columns)
-				draw_line(data, all_points[index], all_points[index + 1]);
-			if ((i + 1) < data->rows)
-				draw_line(data, all_points[index], all_points[index + data->columns]);
-			j++;
-		}
-		i++;
-	}
-}

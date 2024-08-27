@@ -11,8 +11,8 @@
 # include <math.h>
 
 # define ESCAPE 9
-# define WIDTH 400
-# define HEIGHT 400
+# define WIDTH 800
+# define HEIGHT 600
 # define TRUE 1
 # define FALSE 0
 
@@ -47,15 +47,20 @@ typedef struct s_thruple
     int     z;
 }		t_thruple;
 
+/* utils */
+int		*split_atoi(t_fdf *data, char *line);
+
 /* events */
 int     mouse_handler(int button, int x, int y, void *param);
 int     keypress_handler(int keysym, void *param);
+
 /* map */
 t_pair	*parse_map(t_fdf *data, char *file);
-void    draw_line(t_fdf *data, t_pair start, t_pair end);
 
-void flatten_cube(t_fdf *data);
-t_pair project(t_thruple vertex, t_fdf *data);
+/* draw */
+t_pair	project(t_thruple vertex, t_fdf *data);
+void	flatten_cube(t_fdf *data);
 void	draw_all(t_fdf *data, t_pair *all_points);
+void    draw_line(t_fdf *data, t_pair start, t_pair end);
 
 #endif
