@@ -47,7 +47,7 @@ int     main(int argc, char **argv)
         mlx_key_hook(data->window, &keypress_handler, data);
         mlx_mouse_hook(data->window, &mouse_handler, data);
 
-        draw_all(data, all_points); 
+        draw_all(data, all_points);
 
         mlx_loop(data->mlx);
         mlx_destroy_display(data->mlx);	

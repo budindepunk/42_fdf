@@ -25,6 +25,7 @@ int     keypress_handler(int keysym, void *param)
                 mlx_destroy_window(data->mlx, data->window);
                 exit (0);
         }
+        // if right arrow - draw_all
         return (0);
 }
 

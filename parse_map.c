@@ -31,9 +31,9 @@ t_pair *flatten_map(t_fdf *data)
 		j = 0;
 		while (j < data->columns)
 		{
-			point.x = j * 30;
-			point.y = i * 30;
-			point.z = data->map[i][j] * 2;
+			point.x = j * (int)((double)(WIDTH / data->columns) / 1.7);
+			point.y = i * (int)((double)(HEIGHT / data->rows) / 1.2);
+			point.z = data->map[i][j] * 1;
 			all_points[(i * data->columns) + j] = project(point, data);
 			j++;
 		}
