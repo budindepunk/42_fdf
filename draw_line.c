@@ -43,7 +43,6 @@ void    draw_line(t_fdf *data, t_pair start, t_pair end)
             start.y += sign.y;
         }
     }
-    mlx_put_image_to_window(data->mlx, data->window, data->image, 0, 0);
 }
 
 void	draw_all(t_fdf *data, t_pair *all_points)
@@ -70,4 +69,5 @@ void	draw_all(t_fdf *data, t_pair *all_points)
 		}
 		i++;
 	}
+    mlx_put_image_to_window(data->mlx, data->window, data->image, 0, 0);
 }
