@@ -30,10 +30,10 @@ static int get_flat_y(t_thruple vertex, t_fdf *data)
 t_pair project(t_thruple vertex, t_fdf *data)
 {
     t_pair flat_vertex;
-    //int offset;
+    int offset;
 
-    //offset = WIDTH * ((double)data->rows / (double)data->columns / 2);
-    flat_vertex.x = get_flat_x(vertex, data);
+    offset = WIDTH * ((double)data->rows / (double)data->columns / 2);
+    flat_vertex.x = get_flat_x(vertex, data) + offset;
     flat_vertex.y = get_flat_y(vertex, data);
 
     return (flat_vertex);

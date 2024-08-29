@@ -1,45 +1,45 @@
 #include "fdf.h"
 
-static t_pair get_sizes(t_fdf *data, t_pair *all_points)
-{
-	t_pair sizes;
-	t_pair hold_min;
-	t_pair hold_max;
-	int i;
+// static t_pair get_sizes(t_fdf *data, t_pair *all_points)
+// {
+// 	t_pair sizes;
+// 	t_pair hold_min;
+// 	t_pair hold_max;
+// 	int i;
 
-	hold_min.x = INT_MAX;
-	hold_min.y = INT_MAX;
-	hold_max.x = INT_MIN;
-	hold_max.y = INT_MIN;
-	i = 0;
-	while (i < (data->rows * data->columns))
-	{
-		if (all_points[i].x < hold_min.x)
-			hold_min.x = all_points[i].x;
-		if (all_points[i].x > hold_max.x)
-			hold_max.x = all_points[i].x;
-		if (all_points[i].y < hold_min.y)
-			hold_min.y = all_points[i].y;
-		if (all_points[i].y > hold_max.y)
-			hold_max.y = all_points[i].y;
-		i++;
-	}
-    ft_printf("mins: %d in x, %d in y\n", hold_min.x, hold_min.y);
-    ft_printf("maxs: %d in x, %d in y\n", hold_max.x, hold_max.y);
-	sizes.x = hold_max.x - hold_min.x;
-	sizes.y = hold_max.y - hold_min.y;
-    ft_printf("this is how big: %d in x, %d in y\n", sizes.x, sizes.y);
-	return (sizes);
-}
+// 	hold_min.x = INT_MAX;
+// 	hold_min.y = INT_MAX;
+// 	hold_max.x = INT_MIN;
+// 	hold_max.y = INT_MIN;
+// 	i = 0;
+// 	while (i < (data->rows * data->columns))
+// 	{
+// 		if (all_points[i].x < hold_min.x)
+// 			hold_min.x = all_points[i].x;
+// 		if (all_points[i].x > hold_max.x)
+// 			hold_max.x = all_points[i].x;
+// 		if (all_points[i].y < hold_min.y)
+// 			hold_min.y = all_points[i].y;
+// 		if (all_points[i].y > hold_max.y)
+// 			hold_max.y = all_points[i].y;
+// 		i++;
+// 	}
+//     ft_printf("mins: %d in x, %d in y\n", hold_min.x, hold_min.y);
+//     ft_printf("maxs: %d in x, %d in y\n", hold_max.x, hold_max.y);
+// 	sizes.x = hold_max.x - hold_min.x;
+// 	sizes.y = hold_max.y - hold_min.y;
+//     ft_printf("this is how big: %d in x, %d in y\n", sizes.x, sizes.y);
+// 	return (sizes);
+// }
 
-static t_pair scale(t_pair sizes, t_pair point)
-{
-    t_pair scaled;
+// static t_pair scale(t_pair sizes, t_pair point)
+// {
+//     t_pair scaled;
 
-    scaled.x = point.x * (WIDTH / sizes.x);
-    scaled.y = point.y * (HEIGHT / sizes.y);
-    return (scaled);
-}
+//     scaled.x = point.x * (WIDTH / sizes.x);
+//     scaled.y = point.y * (HEIGHT / sizes.y);
+//     return (scaled);
+// }
 
 static void paint_pixel(t_fdf *data, t_pair start, int color)
 {
@@ -93,31 +93,22 @@ void	draw_all(t_fdf *data, t_pair *all_points)
 	int i;
 	int j;
 	int index;
-    t_pair sizes;
-    t_pair temp;
-    t_pair temp2;
+//    t_pair sizes;
+    // t_pair temp;
+    // t_pair temp2;
 
 	i = 0;
-	sizes = get_sizes(data, all_points);
+//	sizes = get_sizes(data, all_points);
 	while (i < data->rows)
 	{
 		j = 0;
 		while (j < data->columns)
 		{
 			index = (i * data->columns) + j;
-            //ft_printf("before scaling: x = %d, y = %d\n", all_points[index].x, all_points[index].y);
-            temp = scale(sizes, all_points[index]);
-            //ft_printf("after scaling: x = %d, y = %d\n", temp.x, temp.y);
 			if ((j + 1) < data->columns)
-            {
-                temp2 = scale(sizes, all_points[index + 1]);
-				draw_line(data, temp, temp2);
-            }
+				draw_line(data, all_points[index], all_points[index + 1]);
             if ((i + 1) < data->rows)
-            {
-                temp2 = scale(sizes, all_points[index + data->columns]);
-				draw_line(data, temp, temp2);
-            }
+				draw_line(data, all_points[index], all_points[index + data->columns]);
             j++;
 		}
 		i++;
