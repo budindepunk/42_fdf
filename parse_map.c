@@ -16,23 +16,39 @@ static void set_dimensions(t_fdf *data, int fd)
 		data->rows++;
 }
 
+static int get_scale_factor(t_fdf *data)
+{
+    double max_scale_x;
+    double max_scale_y;
+
+    max_scale_x = (WIDTH / (data->columns + data->rows)) * sqrt(2);
+    max_scale_y = (HEIGHT / (data->columns + data->rows)) * sqrt(3);
+
+    if (max_scale_x < max_scale_y)
+        return ((int)(max_scale_x * 0.9));
+    else
+        return ((int)(max_scale_y * 0.9));
+}
+
 t_pair *flatten_map(t_fdf *data)
 {
 	int i;
 	int j;
+	int scale;
 	t_pair *all_points;
 	t_thruple point;
 
 	all_points = malloc(sizeof(t_pair) * (data->rows * data->columns));
+	scale = get_scale_factor(data);
 	i = 0;
 	while (i < data->rows)
 	{
 		j = 0;
 		while (j < data->columns)
 		{
-			point.x = j * (int)((double)(WIDTH / data->columns) / 1.7);
-			point.y = i * (int)((double)(HEIGHT / data->rows) / 1.1);
-			point.z = data->map[i][j] * 1;
+			point.x = j * scale;
+			point.y = i * scale;
+			point.z = data->map[i][j] * scale;
 			all_points[(i * data->columns) + j] = project(point, data);
 			j++;
 		}
