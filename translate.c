@@ -10,7 +10,7 @@ static int get_offset(int size_x, int min_x, int total)
     return (offset);
 }
 
-t_pair get_offsets(t_fdf *data, t_pair *all_points)
+t_pair center_offsets(t_fdf *data, t_pair *all_points)
 {
 	t_pair sizes;
 	t_pair hold_min;
@@ -50,4 +50,16 @@ t_pair translate(t_pair offsets, t_pair point)
     offgeset.x = point.x + offsets.x;
     offgeset.y = point.y + offsets.y;
     return (offgeset);
+}
+
+void    translate_all(t_pair offset, t_pair *all_points, t_fdf *data)
+{
+    int i;
+
+    i = 0;
+    while (i < (data->rows * data->columns))
+    {
+        all_points[i] = translate(offset, all_points[i]);
+        i++;
+    }
 }
