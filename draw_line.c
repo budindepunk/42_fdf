@@ -6,7 +6,7 @@
 /*   By: csilva-r <csilva-r@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 14:52:09 by csilva-r          #+#    #+#             */
-/*   Updated: 2024/09/01 14:52:11 by csilva-r         ###   ########.fr       */
+/*   Updated: 2024/09/01 17:26:20 by csilva-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ static void	paint_pixel(t_fdf *data, t_pair start, int color)
 	data->buffer[pixel + 3] = (color >> 24) & 0xFF;
 }
 
+static t_pair	get_signs(t_pair start, t_pair end)
+{
+	t_pair	sign;
+
+	sign.x = (end.x - start.x > 0) - (start.x - end.x > 0);
+	sign.y = (end.y - start.y > 0) - (start.y - end.y > 0);
+	return (sign);
+}
+
 void	draw_line(t_fdf *data, t_pair start, t_pair end)
 {
 	t_pair	delta;
@@ -32,11 +41,9 @@ void	draw_line(t_fdf *data, t_pair start, t_pair end)
 	int		err;
 	int		new_err;
 
-	delta.x = abs(end.x - start.x);
-	delta.y = abs(end.y - start.y);
+	delta = (t_pair){.x = abs(end.x - start.x), .y = abs(end.y - start.y)};
 	err = ((delta.x > delta.y) * delta.x - (delta.x <= delta.y) * delta.y) / 2;
-	sign.x = (end.x - start.x > 0) - (start.x - end.x > 0);
-	sign.y = (end.y - start.y > 0) - (start.y - end.y > 0);
+	sign = get_signs(start, end);
 	while (TRUE)
 	{
 		paint_pixel(data, start, WHITE);
@@ -60,7 +67,7 @@ void	draw_all(t_fdf *data, t_pair *all_points)
 {
 	int		i;
 	int		j;
-	int		index;
+	int		ix;
 	t_pair	offsets;
 
 	offsets = center_offsets(data, all_points);
@@ -71,11 +78,11 @@ void	draw_all(t_fdf *data, t_pair *all_points)
 		j = 0;
 		while (j < data->columns)
 		{
-			index = (i * data->columns) + j;
+			ix = (i * data->columns) + j;
 			if ((j + 1) < data->columns)
-				draw_line(data, all_points[index], all_points[index + 1]);
+				draw_line(data, all_points[ix], all_points[ix + 1]);
 			if ((i + 1) < data->rows)
-				draw_line(data, all_points[index], all_points[index + data->columns]);
+				draw_line(data, all_points[ix], all_points[ix + data->columns]);
 			j++;
 		}
 		i++;

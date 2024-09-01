@@ -6,7 +6,7 @@
 /*   By: csilva-r <csilva-r@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 17:10:34 by csilva-r          #+#    #+#             */
-/*   Updated: 2024/09/01 17:13:43 by csilva-r         ###   ########.fr       */
+/*   Updated: 2024/09/01 17:27:31 by csilva-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_pair	center_offsets(t_fdf *data, t_pair *all_points)
 	t_pair	offsets;
 	int		i;
 
-	hold_min = {.x = INT_MAX, .y = INT_MAX};
-	hold_max = {.x = INT_MIN, .y = INT_MIN};
+	hold_min = (t_pair){.x = INT_MAX, .y = INT_MAX};
+	hold_max = (t_pair){.x = INT_MIN, .y = INT_MIN};
 	i = 0;
 	while (i < (data->rows * data->columns))
 	{
@@ -45,7 +45,7 @@ t_pair	center_offsets(t_fdf *data, t_pair *all_points)
 			hold_max.y = all_points[i].y;
 		i++;
 	}
-	sizes = {.x = hold_max.x - hold_min.x, .y = hold_max.y - hold_min.y};
+	sizes = (t_pair){.x = hold_max.x - hold_min.x, .y = hold_max.y - hold_min.y};
 	offsets.x = get_offset(sizes.x, hold_min.x, WIDTH);
 	offsets.y = get_offset(sizes.y, hold_min.y, HEIGHT);
 	return (offsets);
