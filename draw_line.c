@@ -63,15 +63,15 @@ void	draw_line(t_fdf *data, t_pair start, t_pair end)
 	}
 }
 
-void	draw_all(t_fdf *data, t_pair *all_points)
+void	draw_all(t_fdf *data)
 {
 	int		i;
 	int		j;
 	int		ix;
 	t_pair	offsets;
 
-	offsets = center_offsets(data, all_points);
-	translate_all(offsets, all_points, data);
+	offsets = center_offsets(data);
+	translate_all(offsets, data);
 	i = 0;
 	while (i < data->rows)
 	{
@@ -80,9 +80,9 @@ void	draw_all(t_fdf *data, t_pair *all_points)
 		{
 			ix = (i * data->cols) + j;
 			if ((j + 1) < data->cols)
-				draw_line(data, all_points[ix], all_points[ix + 1]);
+				draw_line(data, data->proj[ix], data->proj[ix + 1]);
 			if ((i + 1) < data->rows)
-				draw_line(data, all_points[ix], all_points[ix + data->cols]);
+				draw_line(data, data->proj[ix], data->proj[ix + data->cols]);
 			j++;
 		}
 		i++;

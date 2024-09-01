@@ -22,7 +22,7 @@ static int	get_offset(int size_x, int min_x, int total)
 	return (offset);
 }
 
-t_pair	center_offsets(t_fdf *data, t_pair *all_points)
+t_pair	center_offsets(t_fdf *data)
 {
 	t_pair	sizes;
 	t_pair	mins;
@@ -35,14 +35,14 @@ t_pair	center_offsets(t_fdf *data, t_pair *all_points)
 	i = 0;
 	while (i < (data->rows * data->cols))
 	{
-		if (all_points[i].x < mins.x)
-			mins.x = all_points[i].x;
-		if (all_points[i].x > maxes.x)
-			maxes.x = all_points[i].x;
-		if (all_points[i].y < mins.y)
-			mins.y = all_points[i].y;
-		if (all_points[i].y > maxes.y)
-			maxes.y = all_points[i].y;
+		if (data->proj[i].x < mins.x)
+			mins.x = data->proj[i].x;
+		if (data->proj[i].x > maxes.x)
+			maxes.x = data->proj[i].x;
+		if (data->proj[i].y < mins.y)
+			mins.y = data->proj[i].y;
+		if (data->proj[i].y > maxes.y)
+			maxes.y = data->proj[i].y;
 		i++;
 	}
 	sizes = (t_pair){.x = maxes.x - mins.x, .y = maxes.y - mins.y};
@@ -60,14 +60,14 @@ t_pair	translate(t_pair offsets, t_pair point)
 	return (offgeset);
 }
 
-void	translate_all(t_pair offset, t_pair *all_points, t_fdf *data)
+void	translate_all(t_pair offset, t_fdf *data)
 {
 	int	i;
 
 	i = 0;
 	while (i < (data->rows * data->cols))
 	{
-		all_points[i] = translate(offset, all_points[i]);
+		data->proj[i] = translate(offset, data->proj[i]);
 		i++;
 	}
 }

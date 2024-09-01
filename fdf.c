@@ -53,18 +53,17 @@ int	check_arguments(int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	t_fdf	*data;
-	t_pair	*all_points;
 
 	if (!check_arguments(argc, argv))
 		return (1);
 	data = init();
-	all_points = parse_map(data, argv[1]);
-	if (!all_points)
+	parse_map(data, argv[1]);
+	if (!data->proj)
 		return (1);
 	mlx_key_hook(data->window, &keypress_handler, data);
 	mlx_mouse_hook(data->window, &mouse_handler, data);
 	mlx_hook(data->window, DestroyNotify, None, &close_handler, data);
-	draw_all(data, all_points);
+	draw_all(data);
 	mlx_loop(data->mlx);
 	return (0);
 }

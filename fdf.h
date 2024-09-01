@@ -33,20 +33,6 @@
 # define WHITE 0xFFFFFF
 
 /* structs */
-typedef struct s_fdf
-{
-	void	*mlx;
-	void	*window;
-	void	*image;
-	char	*buffer;
-	int		bits_pixel;
-	int		size_line;
-	int		endian;
-	int		cols;
-	int		rows;
-	int		**map;
-}		t_fdf;
-
 typedef struct s_pair
 {
 	int		x;
@@ -60,6 +46,21 @@ typedef struct s_thruple
 	int	z;
 }		t_thruple;
 
+typedef struct s_fdf
+{
+	t_pair	*proj;
+	void	*mlx;
+	void	*window;
+	void	*image;
+	char	*buffer;
+	int		bits_pixel;
+	int		size_line;
+	int		endian;
+	int		cols;
+	int		rows;
+	int		**map;
+}		t_fdf;
+
 /* utils */
 int		*split_atoi(t_fdf *data, char *line);
 
@@ -67,17 +68,17 @@ int		*split_atoi(t_fdf *data, char *line);
 int		mouse_handler(int button, int x, int y, void *param);
 int		keypress_handler(int keysym, void *param);
 int		close_handler(void *param);
+void	cleanup(t_fdf *data);
 
 /* map */
-t_pair	*parse_map(t_fdf *data, char *file);
+void	parse_map(t_fdf *data, char *file);
 
 /* draw */
 t_pair	project(t_thruple vertex, t_fdf *data);
-t_pair	center_offsets(t_fdf *data, t_pair *all_points);
+t_pair	center_offsets(t_fdf *data);
 t_pair	translate(t_pair offsets, t_pair point);
-void	translate_all(t_pair offset, t_pair *all_points, t_fdf *data);
-void	flatten_cube(t_fdf *data);
-void	draw_all(t_fdf *data, t_pair *all_points);
+void	translate_all(t_pair offset, t_fdf *data);
+void	draw_all(t_fdf *data);
 void	draw_line(t_fdf *data, t_pair start, t_pair end);
 
 #endif

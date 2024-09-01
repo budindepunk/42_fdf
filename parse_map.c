@@ -53,15 +53,14 @@ static int	get_scale_factor(t_fdf *data)
 		return ((int)(max_scale_y * 0.9));
 }
 
-t_pair	*flatten_map(t_fdf *data)
+static void	flatten_map(t_fdf *data)
 {
 	int			i;
 	int			j;
 	int			scale;
-	t_pair		*all_points;
 	t_thruple	point;
 
-	all_points = malloc(sizeof(t_pair) * (data->rows * data->cols));
+	data->proj = malloc(sizeof(t_pair) * (data->rows * data->cols));
 	scale = get_scale_factor(data);
 	i = 0;
 	while (i < data->rows)
@@ -72,36 +71,35 @@ t_pair	*flatten_map(t_fdf *data)
 			point.x = j * scale;
 			point.y = i * scale;
 			point.z = data->map[i][j] * scale;
-			all_points[(i * data->cols) + j] = project(point, data);
+			data->proj[(i * data->cols) + j] = project(point, data);
 			j++;
 		}
 		i++;
 	}
-	return (all_points);
 }
 
-static t_pair	*error_and_return(void)
+static void	error_and_return(t_fdf *data)
 {
 	ft_putendl_fd("Error opening file.", 2);
-	return (NULL);
+	cleanup(data);
+	return ;
 }
 
-t_pair	*parse_map(t_fdf *data, char *file)
+void	parse_map(t_fdf *data, char *file)
 {
 	int		fd;
 	int		i;
 	char	*line;
-	t_pair	*all_points;
 
 	fd = open(file, O_RDONLY);
 	if (fd <= 0)
-		return (error_and_return());
+		return (error_and_return(data));
 	set_dimensions(data, fd);
 	close(fd);
 	data->map = malloc(sizeof(int *) * data->rows);
 	fd = open(file, O_RDONLY);
 	i = 0;
-	while (i < data->rows)
+	while (i <= data->rows)
 	{
 		line = get_next_line(fd);
 		if (!line)
@@ -110,6 +108,6 @@ t_pair	*parse_map(t_fdf *data, char *file)
 		free(line);
 		i++;
 	}
-	all_points = flatten_map(data);
-	return (all_points);
+	free(line);
+	flatten_map(data);
 }
