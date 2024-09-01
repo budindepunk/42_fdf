@@ -1,27 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   translate.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: csilva-r <csilva-r@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/01 17:10:34 by csilva-r          #+#    #+#             */
+/*   Updated: 2024/09/01 17:13:43 by csilva-r         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-static int get_offset(int size_x, int min_x, int total)
+static int	get_offset(int size_x, int min_x, int total)
 {
-    int desired;
-    int offset;
+	int	desired;
+	int	offset;
 
-    desired = (total - size_x) / 2;
-    offset = desired - min_x;
-    return (offset);
+	desired = (total - size_x) / 2;
+	offset = desired - min_x;
+	return (offset);
 }
 
-t_pair center_offsets(t_fdf *data, t_pair *all_points)
+t_pair	center_offsets(t_fdf *data, t_pair *all_points)
 {
-	t_pair sizes;
-	t_pair hold_min;
-	t_pair hold_max;
-    t_pair offsets;
-	int i;
+	t_pair	sizes;
+	t_pair	hold_min;
+	t_pair	hold_max;
+	t_pair	offsets;
+	int		i;
 
-	hold_min.x = INT_MAX;
-	hold_min.y = INT_MAX;
-	hold_max.x = INT_MIN;
-	hold_max.y = INT_MIN;
+	hold_min = {.x = INT_MAX, .y = INT_MAX};
+	hold_max = {.x = INT_MIN, .y = INT_MIN};
 	i = 0;
 	while (i < (data->rows * data->columns))
 	{
@@ -35,31 +45,29 @@ t_pair center_offsets(t_fdf *data, t_pair *all_points)
 			hold_max.y = all_points[i].y;
 		i++;
 	}
-	sizes.x = hold_max.x - hold_min.x;
-	sizes.y = hold_max.y - hold_min.y;
-    offsets.x = get_offset(sizes.x, hold_min.x, WIDTH);
-    offsets.y = get_offset(sizes.y, hold_min.y, HEIGHT);
+	sizes = {.x = hold_max.x - hold_min.x, .y = hold_max.y - hold_min.y};
+	offsets.x = get_offset(sizes.x, hold_min.x, WIDTH);
+	offsets.y = get_offset(sizes.y, hold_min.y, HEIGHT);
 	return (offsets);
 }
 
-
-t_pair translate(t_pair offsets, t_pair point)
+t_pair	translate(t_pair offsets, t_pair point)
 {
-    t_pair offgeset;
+	t_pair	offgeset;
 
-    offgeset.x = point.x + offsets.x;
-    offgeset.y = point.y + offsets.y;
-    return (offgeset);
+	offgeset.x = point.x + offsets.x;
+	offgeset.y = point.y + offsets.y;
+	return (offgeset);
 }
 
-void    translate_all(t_pair offset, t_pair *all_points, t_fdf *data)
+void	translate_all(t_pair offset, t_pair *all_points, t_fdf *data)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (i < (data->rows * data->columns))
-    {
-        all_points[i] = translate(offset, all_points[i]);
-        i++;
-    }
+	i = 0;
+	while (i < (data->rows * data->columns))
+	{
+		all_points[i] = translate(offset, all_points[i]);
+		i++;
+	}
 }
