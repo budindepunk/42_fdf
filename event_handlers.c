@@ -17,7 +17,7 @@ void	cleanup(t_fdf *data)
 	int	i;
 
 	i = 0;
-	while(i < data->rows)
+	while (i < data->rows)
 		free(data->map[i++]);
 	free(data->map);
 	free(data->proj);
@@ -31,7 +31,7 @@ void	cleanup(t_fdf *data)
 int	mouse_handler(int button, int x, int y, void *param)
 {
 	if (!button || !x || !y || !param)
-		return  (0);
+		return (0);
 	return (0);
 }
 
