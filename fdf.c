@@ -66,6 +66,5 @@ int	main(int argc, char **argv)
 	mlx_hook(data->window, DestroyNotify, None, &close_handler, data);
 	draw_all(data, all_points);
 	mlx_loop(data->mlx);
-	mlx_destroy_display(data->mlx);
 	return (0);
 }

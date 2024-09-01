@@ -24,6 +24,7 @@ int	*split_atoi(t_fdf *data, char *line)
 	while (temp[i])
 	{
 		row[i] = ft_atoi(temp[i]);
+		free(temp[i]);
 		i++;
 	}
 	free(temp);

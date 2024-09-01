@@ -15,16 +15,28 @@
 static void	set_dimensions(t_fdf *data, int fd)
 {
 	char	**line;
+	char	*temp;
 
 	data->rows = 0;
 	data->cols = 0;
-	line = ft_split(get_next_line(fd), ' ');
+	temp = get_next_line(fd);
+	line = ft_split(temp, ' ');
+	free(temp);
 	while (line[data->cols])
+	{
+		free(line[data->cols]);
 		data->cols++;
+	}
 	free(line);
 	data->rows++;
-	while (get_next_line(fd))
+	temp = get_next_line(fd);
+	while (temp)
+	{
 		data->rows++;
+		free(temp);
+		temp = get_next_line(fd);
+	}
+	free(temp);
 }
 /*aca arriba free lo que sale de gnl // catch empty file error*/
 
@@ -85,8 +97,8 @@ t_pair	*parse_map(t_fdf *data, char *file)
 	if (fd <= 0)
 		return (error_and_return());
 	set_dimensions(data, fd);
-	data->map = malloc(sizeof(int *) * data->rows);
 	close(fd);
+	data->map = malloc(sizeof(int *) * data->rows);
 	fd = open(file, O_RDONLY);
 	i = 0;
 	while (i < data->rows)
