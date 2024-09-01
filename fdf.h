@@ -41,7 +41,7 @@ typedef struct s_fdf
 	int		bits_pixel;
 	int		size_line;
 	int		endian;
-	int		columns;
+	int		cols;
 	int		rows;
 	int		**map;
 }		t_fdf;

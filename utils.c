@@ -19,7 +19,7 @@ int	*split_atoi(t_fdf *data, char *line)
 	int		i;
 
 	temp = ft_split(line, ' ');
-	row = malloc(sizeof(int) * data->columns);
+	row = malloc(sizeof(int) * data->cols);
 	i = 0;
 	while (temp[i])
 	{

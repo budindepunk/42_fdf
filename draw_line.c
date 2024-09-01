@@ -76,13 +76,13 @@ void	draw_all(t_fdf *data, t_pair *all_points)
 	while (i < data->rows)
 	{
 		j = 0;
-		while (j < data->columns)
+		while (j < data->cols)
 		{
-			ix = (i * data->columns) + j;
-			if ((j + 1) < data->columns)
+			ix = (i * data->cols) + j;
+			if ((j + 1) < data->cols)
 				draw_line(data, all_points[ix], all_points[ix + 1]);
 			if ((i + 1) < data->rows)
-				draw_line(data, all_points[ix], all_points[ix + data->columns]);
+				draw_line(data, all_points[ix], all_points[ix + data->cols]);
 			j++;
 		}
 		i++;
