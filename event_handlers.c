@@ -14,17 +14,8 @@
 
 int	mouse_handler(int button, int x, int y, void *param)
 {
-	t_fdf	*data;
-
-	data = (t_fdf *)param;
-	if (!param && !x && !y)
-		return (0);
-	if (button == 17)
-	{
-		mlx_destroy_image(data->mlx, data->image);
-		mlx_destroy_window(data->mlx, data->window);
-		exit (0);
-	}
+	if (!button || !x || !y || !param)
+		return  (0);
 	return (0);
 }
 
@@ -40,4 +31,14 @@ int	keypress_handler(int keysym, void *param)
 		exit (0);
 	}
 	return (0);
+}
+
+int	close_handler(void *param)
+{
+	t_fdf	*data;
+
+	data = (t_fdf *)param;
+	mlx_destroy_image(data->mlx, data->image);
+	mlx_destroy_window(data->mlx, data->window);
+	exit (0);
 }

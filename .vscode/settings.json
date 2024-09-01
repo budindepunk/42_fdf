@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"fdf.h": "c",
+		"keysym.h": "c",
+		"fcntl.h": "c"
+	}
+}

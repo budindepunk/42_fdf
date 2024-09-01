@@ -16,6 +16,7 @@
 # include "includes/mlx_linux/mlx.h"
 # include "includes/libft/libft.h"
 # include <X11/keysym.h>
+# include <X11/X.h>
 # include <fcntl.h>
 # include <limits.h>
 # include <unistd.h>
@@ -65,6 +66,7 @@ int		*split_atoi(t_fdf *data, char *line);
 /* events */
 int		mouse_handler(int button, int x, int y, void *param);
 int		keypress_handler(int keysym, void *param);
+int		close_handler(void *param);
 
 /* map */
 t_pair	*parse_map(t_fdf *data, char *file);
