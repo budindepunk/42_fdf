@@ -34,6 +34,24 @@ static t_pair	get_signs(t_pair start, t_pair end)
 	return (sign);
 }
 
+void	clear_window(t_fdf *data)
+{
+	t_pair	pixel;
+
+	pixel.y = 0;
+	while (pixel.y < HEIGHT)
+	{
+		pixel.x = 0;
+		while (pixel.x < WIDTH)
+		{
+			paint_pixel(data, pixel, BLACK);
+			pixel.x++;
+		}
+		pixel.y++;
+	}
+	mlx_put_image_to_window(data->mlx, data->window, data->image, 0, 0);
+}
+
 void	draw_line(t_fdf *data, t_pair start, t_pair end)
 {
 	t_pair	delta;
@@ -63,15 +81,14 @@ void	draw_line(t_fdf *data, t_pair start, t_pair end)
 	}
 }
 
-void	draw_all(t_fdf *data)
+void	draw_all(t_fdf *data, int to_center)
 {
 	int		i;
 	int		j;
 	int		ix;
-	t_pair	offsets;
 
-	offsets = center_offsets(data);
-	translate_all(offsets, data);
+	if (to_center)
+		translate_all(center_offsets(data), data);
 	i = 0;
 	while (i < data->rows)
 	{

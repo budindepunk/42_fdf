@@ -81,7 +81,7 @@ static void	flatten_map(t_fdf *data)
 static void	error_and_return(t_fdf *data)
 {
 	ft_putendl_fd("Error opening file.", 2);
-	cleanup(data);
+	cleanup_exit(data, TRUE);
 	return ;
 }
 

@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-void	cleanup(t_fdf *data)
+void	cleanup_exit(t_fdf *data, int error)
 {
 	int	i;
 
@@ -26,6 +26,9 @@ void	cleanup(t_fdf *data)
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
 	free(data);
+	if (error)
+		exit (1);
+	exit (0);
 }
 
 int	mouse_handler(int button, int x, int y, void *param)
@@ -38,13 +41,27 @@ int	mouse_handler(int button, int x, int y, void *param)
 int	keypress_handler(int keysym, void *param)
 {
 	t_fdf	*data;
+	t_pair	move;
+	int		center;
 
+	center = FALSE;
+	move = (t_pair){.x = 0, .y = 0};
 	data = (t_fdf *)param;
 	if (keysym == XK_Escape)
-	{
-		cleanup(data);
-		exit (0);
-	}
+		cleanup_exit(data, FALSE);
+	else if (keysym == XK_Right)
+		move.x = 10;
+	else if (keysym == XK_Up)
+		move.y = -10;
+	else if (keysym == XK_Left)
+		move.x = -10;
+	else if (keysym == XK_Down)
+		move.y = 10;
+	else if (keysym == XK_space)
+		center = TRUE;
+	translate_all(move, data);
+	clear_window(data);
+	draw_all(data, center);
 	return (0);
 }
 
@@ -53,6 +70,6 @@ int	close_handler(void *param)
 	t_fdf	*data;
 
 	data = (t_fdf *)param;
-	cleanup(data);
-	exit (0);
+	cleanup_exit(data, FALSE);
+	return (0);
 }

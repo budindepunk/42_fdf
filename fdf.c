@@ -63,7 +63,7 @@ int	main(int argc, char **argv)
 	mlx_key_hook(data->window, &keypress_handler, data);
 	mlx_mouse_hook(data->window, &mouse_handler, data);
 	mlx_hook(data->window, DestroyNotify, None, &close_handler, data);
-	draw_all(data);
+	draw_all(data, TRUE);
 	mlx_loop(data->mlx);
 	return (0);
 }
