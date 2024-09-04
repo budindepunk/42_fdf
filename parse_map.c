@@ -38,7 +38,6 @@ static void	set_dimensions(t_fdf *data, int fd)
 	}
 	free(temp);
 }
-/*aca arriba free lo que sale de gnl // catch empty file error*/
 
 static int	get_scale_factor(t_fdf *data)
 {
@@ -48,9 +47,9 @@ static int	get_scale_factor(t_fdf *data)
 	max_scale_x = (WIDTH / (data->cols + data->rows)) * sqrt(2);
 	max_scale_y = (HEIGHT / (data->cols + data->rows)) * sqrt(3);
 	if (max_scale_x < max_scale_y)
-		return ((int)(max_scale_x * 0.9));
+		return ((int)(max_scale_x * 0.8));
 	else
-		return ((int)(max_scale_y * 0.9));
+		return ((int)(max_scale_y * 0.8));
 }
 
 static void	flatten_map(t_fdf *data)
