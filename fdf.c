@@ -23,13 +23,11 @@ t_fdf	*init(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd <= 0)
 		error_and_return();
-	ft_printf("valid fd: %d\n", fd);
 	dims = set_dimensions(fd);
 	close(fd);
 	data = (t_fdf *)malloc(sizeof(t_fdf));
 	data->rows = dims.y;
 	data->cols = dims.x;
-	ft_printf("set dimensions as rows: %d, columns %d\n", data->rows, data->cols);
 	data->mlx = mlx_init();
 	bitpix = &data->bits_pixel;
 	sizel = &data->size_line;

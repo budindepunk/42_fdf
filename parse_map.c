@@ -18,10 +18,8 @@ t_pair	set_dimensions(int fd)
 	char	*temp;
 	t_pair	dimensions;
 
-	ft_printf("in set dimensions\n");
 	dimensions = (t_pair){.x = 0, .y = 0};
 	temp = get_next_line(fd);
-	ft_printf("hey\n");
 	line = ft_split(temp, ' ');
 	free(temp);
 	while (line[dimensions.x])
@@ -39,8 +37,7 @@ t_pair	set_dimensions(int fd)
 		temp = get_next_line(fd);
 	}
 	free(temp);
-	ft_printf("dimensions are set. rows: %d, cols: %d\n", dimensions.y, dimensions.x);
-	return(dimensions);
+	return (dimensions);
 }
 
 static int	get_scale_factor(t_fdf *data)
@@ -93,11 +90,6 @@ void	parse_map(t_fdf *data, char *file)
 	int		i;
 	char	*line;
 
-	// fd = open(file, O_RDONLY);
-	// if (fd <= 0)
-	// 	return (error_and_return(data));
-	// set_dimensions(data, fd);
-	// close(fd);
 	data->map = malloc(sizeof(int *) * data->rows);
 	fd = open(file, O_RDONLY);
 	i = 0;
