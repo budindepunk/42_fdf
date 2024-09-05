@@ -12,31 +12,35 @@
 
 #include "fdf.h"
 
-static void	set_dimensions(t_fdf *data, int fd)
+t_pair	set_dimensions(int fd)
 {
 	char	**line;
 	char	*temp;
+	t_pair	dimensions;
 
-	data->rows = 0;
-	data->cols = 0;
+	ft_printf("in set dimensions\n");
+	dimensions = (t_pair){.x = 0, .y = 0};
 	temp = get_next_line(fd);
+	ft_printf("hey\n");
 	line = ft_split(temp, ' ');
 	free(temp);
-	while (line[data->cols])
+	while (line[dimensions.x])
 	{
-		free(line[data->cols]);
-		data->cols++;
+		free(line[dimensions.x]);
+		dimensions.x++;
 	}
 	free(line);
-	data->rows++;
+	dimensions.y++;
 	temp = get_next_line(fd);
 	while (temp)
 	{
-		data->rows++;
+		dimensions.y++;
 		free(temp);
 		temp = get_next_line(fd);
 	}
 	free(temp);
+	ft_printf("dimensions are set. rows: %d, cols: %d\n", dimensions.y, dimensions.x);
+	return(dimensions);
 }
 
 static int	get_scale_factor(t_fdf *data)
@@ -47,9 +51,9 @@ static int	get_scale_factor(t_fdf *data)
 	max_scale_x = (WIDTH / (data->cols + data->rows)) * sqrt(2);
 	max_scale_y = (HEIGHT / (data->cols + data->rows)) * sqrt(3);
 	if (max_scale_x < max_scale_y)
-		return ((int)(max_scale_x * 0.8));
+		return ((int)(max_scale_x * 0.9));
 	else
-		return ((int)(max_scale_y * 0.8));
+		return ((int)(max_scale_y * 0.9));
 }
 
 static void	flatten_map(t_fdf *data)
@@ -77,11 +81,10 @@ static void	flatten_map(t_fdf *data)
 	}
 }
 
-static void	error_and_return(t_fdf *data)
+void	error_and_return(void)
 {
 	ft_putendl_fd("Error opening file.", 2);
-	cleanup_exit(data, TRUE);
-	return ;
+	exit (0);
 }
 
 void	parse_map(t_fdf *data, char *file)
@@ -90,11 +93,11 @@ void	parse_map(t_fdf *data, char *file)
 	int		i;
 	char	*line;
 
-	fd = open(file, O_RDONLY);
-	if (fd <= 0)
-		return (error_and_return(data));
-	set_dimensions(data, fd);
-	close(fd);
+	// fd = open(file, O_RDONLY);
+	// if (fd <= 0)
+	// 	return (error_and_return(data));
+	// set_dimensions(data, fd);
+	// close(fd);
 	data->map = malloc(sizeof(int *) * data->rows);
 	fd = open(file, O_RDONLY);
 	i = 0;

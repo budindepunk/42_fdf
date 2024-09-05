@@ -18,6 +18,8 @@ all:	$(NAME)
 $(LIBFT):
 	$(info Building libft...)
 	@make -s -C includes/libft
+	$(info Building mlx...)
+	@make do_configure -s -C includes/mlx_linux
 
 $(NAME): $(LIBFT) $(OBJS)
 	$(info Linking $(NAME)...)

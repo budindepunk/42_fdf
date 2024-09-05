@@ -12,13 +12,24 @@
 
 #include "fdf.h"
 
-t_fdf	*init(void)
+t_fdf	*init(char *file)
 {
 	t_fdf	*data;
 	int		*bitpix;
 	int		*sizel;
+	int		fd;
+	t_pair	dims;
 
+	fd = open(file, O_RDONLY);
+	if (fd <= 0)
+		error_and_return();
+	ft_printf("valid fd: %d\n", fd);
+	dims = set_dimensions(fd);
+	close(fd);
 	data = (t_fdf *)malloc(sizeof(t_fdf));
+	data->rows = dims.y;
+	data->cols = dims.x;
+	ft_printf("set dimensions as rows: %d, columns %d\n", data->rows, data->cols);
 	data->mlx = mlx_init();
 	bitpix = &data->bits_pixel;
 	sizel = &data->size_line;
@@ -56,7 +67,7 @@ int	main(int argc, char **argv)
 
 	if (!check_arguments(argc, argv))
 		return (1);
-	data = init();
+	data = init(argv[1]);
 	parse_map(data, argv[1]);
 	if (!data->proj)
 		return (1);

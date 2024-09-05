@@ -64,6 +64,7 @@ typedef struct s_fdf
 
 /* utils */
 int		*split_atoi(t_fdf *data, char *line);
+void	error_and_return(void);
 
 /* events */
 int		mouse_handler(int button, int x, int y, void *param);
@@ -73,6 +74,7 @@ void	cleanup_exit(t_fdf *data, int error);
 
 /* map */
 void	parse_map(t_fdf *data, char *file);
+t_pair	set_dimensions(int fd);
 
 /* draw */
 t_pair	project(t_thruple vertex, t_fdf *data);
